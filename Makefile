@@ -1,3 +1,6 @@
+# LIKWID
+	LIKPATH = /home/soft/likwid
+	
 # PROGRAMA
     PROG = interpola
 
