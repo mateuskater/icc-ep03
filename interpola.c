@@ -38,13 +38,13 @@ double lagrange(int n, double x[], double y[], double xi) {
     return result;
 }
 
-void read_matrix(double **A, int n){
-    for (int i = 0; i < n; i++){
-        scanf("%lf\n", A[i][0]); // le x
-        scanf("%lf\n",A[i][1]); // le f(x)
-    }
-    getchar();
-}
+// void read_matrix(double **A, int n){
+//     for (int i = 0; i < n; i++){
+//         scanf("%lf\n", A[i][0]); // le x
+//         scanf("%lf\n",A[i][1]); // le f(x)
+//     }
+//     getchar();
+// }
 
 
 double timestamp(void){
