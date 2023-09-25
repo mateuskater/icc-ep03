@@ -12,8 +12,7 @@ DISTDIR = `basename ${PWD}`
 
 .PHONY: all clean purge dist
 
-all:
-	$(MAIN)
+all: $(PROG)
 
 clean:
 	@echo "Limpando sujeira ..."

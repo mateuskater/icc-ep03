@@ -15,7 +15,7 @@ double timestamp(void){
     return ((double)tp.tv_sec*1.0e3 + (double)tp.tv_nsec*1.0e-6);
 }
 
-double lagrangeInterpolation(Point* table, int N, double xe) {
+double lagrange(Point* table, int N, double xe) {
     double result = 0.0;
     for (int i = 0; i < N; i++) {
         double term = table[i].fx;
@@ -29,7 +29,7 @@ double lagrangeInterpolation(Point* table, int N, double xe) {
     return result;
 }
 
-double newtonInterpolation(Point* table, int N, double xe) {
+double newton(Point* table, int N, double xe) {
     double result = table[0].fx;
     double* dividedDifferences = malloc(N * sizeof(double));
 
@@ -65,7 +65,7 @@ int main(int argc, char **argv) {
 
     LIKWID_MARKER_START("lagrange");
     start = timestamp();
-    double lagrangeResult = lagrangeInterpolation(table, N, xe);
+    double lagrangeResult = lagrange(table, N, xe);
     end = timestamp();
     LIKWID_MARKER_STOP("lagrange");
 
@@ -74,7 +74,7 @@ int main(int argc, char **argv) {
     // Medir o tempo para o método de Newton
     LIKWID_MARKER_START("newton");
     start = timestamp();
-    double newtonResult = newtonInterpolation(table, N, xe);
+    double newtonResult = newton(table, N, xe);
     end = timestamp();
     LIKWID_MARKER_STOP("newton");
 
