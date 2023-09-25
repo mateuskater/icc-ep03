@@ -3,14 +3,17 @@
 
 # Compilador
     CC     = gcc
-    CFLAGS = 
-    LFLAGS = -lm
+    CFLAGS = -Wall -Wpedantic -Werror -g -O3 -mavx -march=native -I $(LIKPATH)/include -L $(LIKPATH)/lib
+    LFLAGS = -lm -llikwid
 
 # Lista de arquivos para distribuição
 DISTFILES = *.c *.h LEIAME* Makefile
 DISTDIR = `basename ${PWD}`
 
 .PHONY: all clean purge dist
+
+all:
+	$(MAIN)
 
 clean:
 	@echo "Limpando sujeira ..."

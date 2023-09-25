@@ -2,14 +2,19 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
+#include <likwid.h>
 
-// Definir a estrutura para representar pontos (x, f(x))
 typedef struct {
     double x;
     double fx;
 } Point;
 
-// Função para calcular o polinômio de Lagrange
+double timestamp(void){
+    struct timespec tp;
+    clock_gettime(CLOCK_MONOTONIC_RAW, &tp);
+    return ((double)tp.tv_sec*1.0e3 + (double)tp.tv_nsec*1.0e-6);
+}
+
 double lagrangeInterpolation(Point* table, int N, double xe) {
     double result = 0.0;
     for (int i = 0; i < N; i++) {
@@ -24,7 +29,6 @@ double lagrangeInterpolation(Point* table, int N, double xe) {
     return result;
 }
 
-// Função para calcular o polinômio de Newton
 double newtonInterpolation(Point* table, int N, double xe) {
     double result = table[0].fx;
     double* dividedDifferences = malloc(N * sizeof(double));
@@ -44,37 +48,40 @@ double newtonInterpolation(Point* table, int N, double xe) {
     return result;
 }
 
-int main() {
+int main(int argc, char **argv) {
+    LIKWID_MARKER_INIT;
     int N;
-    printf("Informe a quantidade de pontos N: ");
+    double start, end;
+    printf("Insira N.");
     scanf("%d", &N);
 
     Point* table = malloc(N * sizeof(Point));
-    printf("Informe os pontos (x, f(x)):\n");
+    printf("Insira os pontos (x, f(x)).\n");
     for (int i = 0; i < N; i++) {
         scanf("%lf %lf", &table[i].x, &table[i].fx);
     }
 
-    double xe;
-    printf("Informe o valor de xe para interpolação: ");
-    scanf("%lf", &xe);
+    double xe = atoi(argv[1]);
 
-    // Medir o tempo para o método de Lagrange
-    clock_t start = clock();
+    LIKWID_MARKER_START("lagrange");
+    start = timestamp();
     double lagrangeResult = lagrangeInterpolation(table, N, xe);
-    clock_t end = clock();
-    double lagrangeTime = (double)(end - start) * 1000.0 / CLOCKS_PER_SEC;
+    end = timestamp();
+    LIKWID_MARKER_STOP("lagrange");
+
+    printf("Tempo gasto para Lagrange: %lf\n",end-start);
 
     // Medir o tempo para o método de Newton
-    start = clock();
+    LIKWID_MARKER_START("newton");
+    start = timestamp();
     double newtonResult = newtonInterpolation(table, N, xe);
-    end = clock();
-    double newtonTime = (double)(end - start) * 1000.0 / CLOCKS_PER_SEC;
+    end = timestamp();
+    LIKWID_MARKER_STOP("newton");
+
+    printf("Tempo gasto para newton: %lf\n",end-start);
 
     printf("Resultado da interpolação por Lagrange: %.4lf\n", lagrangeResult);
-    printf("Tempo gasto em milisegundos para Lagrange: %.4lf\n", lagrangeTime);
     printf("Resultado da interpolação por Newton: %.4lf\n", newtonResult);
-    printf("Tempo gasto em milisegundos para Newton: %.4lf\n", newtonTime);
 
     free(table);
     return 0;
