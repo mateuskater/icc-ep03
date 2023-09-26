@@ -6,8 +6,8 @@
 
 # Compilador
     CC     = gcc
-    CFLAGS = -Wall -Wpedantic -Werror -g -O3 -mavx -march=native -I $(LIKPATH)/include -L $(LIKPATH)/lib
-    LFLAGS = -lm -llikwid
+    CFLAGS = -Wall -Wpedantic -Werror -g -O3 -std=c11 -mavx -march=native -D_POSIX_C_SOURCE=199309L -I $(LIKPATH)/include -L $(LIKPATH)/lib
+    LDLIBS = -DLIKWID_PERFMON -lm -llikwid
 
 # Lista de arquivos para distribuição
 DISTFILES = *.c *.h LEIAME* Makefile

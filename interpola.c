@@ -74,7 +74,7 @@ int main(int argc, char **argv) {
     LIKWID_MARKER_INIT;
     int N;
     double start, end;
-    printf("Insira N.");
+    printf("Insira N.\n");
     scanf("%d", &N);
 
     Point* table = malloc(N * sizeof(Point));
@@ -106,5 +106,6 @@ int main(int argc, char **argv) {
     printf("Resultado da interpolação por Newton: %.4lf\n", newtonResult);
 
     free(table);
+    LIKWID_MARKER_CLOSE;
     return 0;
 }
