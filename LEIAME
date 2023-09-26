@@ -1,0 +1,14 @@
+Nome: Mateus Kater Pombeiro
+
+O programa deve ser utilizado da seguinte maneira:
+Deve ser compilado com "make", e rodado com o comando "./run.sh x", onde x é o valor que se deseja aproximar a função que será fornecida no arquivo "teste.in", que deve ser posicionado na mesma pasta do programa.
+
+Exemplo de conteúdo do arquivo teste.in:
+
+4
+3 4
+5 1
+2 3
+3 4
+
+A primeira linha deve conter o número N de pontos que a função terá, e as N seguintes linhas conterão x e f(x) da função.
